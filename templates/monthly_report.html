@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #2c3e50; background-color: #f4f7f6; margin: 0; padding: 0; }
+        .container { width: 90%; max-width: 800px; margin: 30px auto; background: #ffffff; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); overflow: hidden; border: 1px solid #e1e8ed; }
+        .header { background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%); color: #ffffff; padding: 30px 20px; text-align: center; }
+        .header h1 { margin: 0; font-size: 24px; letter-spacing: 1px; text-transform: uppercase; }
+        .content { padding: 30px; }
+        .welcome-msg { font-size: 18px; color: #2c3e50; margin-bottom: 10px; font-weight: 600; }
+        .intro-text { color: #7f8c8d; margin-bottom: 30px; }
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 20px; margin-bottom: 30px; }
+        .stat-card { background: #f8f9fa; padding: 15px; border-radius: 8px; text-align: center; border: 1px solid #eee; }
+        .stat-value { font-size: 20px; font-weight: bold; color: #3498db; }
+        .stat-label { font-size: 12px; color: #95a5a6; text-transform: uppercase; }
+        table { width: 100%; border-collapse: separate; border-spacing: 0; margin-top: 10px; border-radius: 8px; overflow: hidden; border: 1px solid #eee; }
+        th { background-color: #f8f9fa; color: #2c3e50; font-weight: 600; text-align: left; padding: 12px 15px; border-bottom: 2px solid #eee; font-size: 13px; }
+        td { padding: 12px 15px; border-bottom: 1px solid #eee; font-size: 14px; vertical-align: top; }
+        tr:last-child td { border-bottom: none; }
+        .diagnosis { font-weight: 600; color: #e67e22; }
+        .treatment { color: #27ae60; font-style: italic; }
+        .footer { background-color: #f8f9fa; text-align: center; padding: 20px; font-size: 12px; color: #95a5a6; border-top: 1px solid #eee; }
+        .footer p { margin: 5px 0; }
+        .brand { color: #2c3e50; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>{{ data.title }}</h1>
+        </div>
+        <div class="content">
+            <p class="welcome-msg">Hello Dr. {{ data.user_name }},</p>
+            <p class="intro-text">{{ data.message }}</p>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-value">{{ data.appointments|length }}</div>
+                    <div class="stat-label">Total Consultations</div>
+                </div>
+            </div>
+
+            <h3 style="color: #2c3e50; border-left: 4px solid #3498db; padding-left: 10px; margin-bottom: 15px;">Consultation Details</h3>
+            
+            {% if data.appointments %}
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 15%;">Date</th>
+                        <th style="width: 15%;">Patient</th>
+                        <th style="width: 10%;">Status</th>
+                        <th style="width: 25%;">Diagnosis</th>
+                        <th style="width: 35%;">Treatment Plan</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for app in data.appointments %}
+                    <tr>
+                        <td>
+                            <div style="font-weight: 600;">{{ app.date }}</div>
+                            <div style="font-size: 11px; color: #95a5a6;">{{ app.time }}</div>
+                        </td>
+                        <td>{{ app.patient_name }}</td>
+                        <td>
+                            <span style="font-size: 11px; padding: 2px 6px; border-radius: 4px; text-transform: uppercase; font-weight: bold; {{ 'background-color: #d4edda; color: #155724;' if app.status == 'completed' else 'background-color: #f8d7da; color: #721c24;' }}">
+                                {{ app.status }}
+                            </span>
+                        </td>
+                        <td><span class="diagnosis">{{ app.diagnosis }}</span></td>
+                        <td><span class="treatment">{{ app.treatment }}</span></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <div style="text-align: center; padding: 40px; color: #95a5a6; background: #f8f9fa; border-radius: 8px;">
+                No consultations recorded for this period.
+            </div>
+            {% endif %}
+            
+        </div>
+        <div class="footer">
+            <p class="brand">Hospital Management System</p>
+            <p>&copy; 23dp3000042 IITM BS DEGREE</p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+        .container { width: 80%; margin: 20px auto; padding: 20px; border: 1px solid #ddd; border-radius: 8px; }
+        .header { background-color: #007bff; color: white; padding: 10px; text-align: center; border-radius: 8px 8px 0 0; }
+        .content { padding: 20px; }
+        .footer { text-align: center; font-size: 0.8em; color: #777; margin-top: 20px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>{{ data.title }}</h1>
+        </div>
+        <div class="content">
+            <p>Hello {{ data.user_name }},</p>
+            <p>{{ data.message }}</p>
+            
+            {% if data.appointments %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Time</th>
+                        {% if data.role == 'doctor' %}
+                        <th>Patient</th>
+                        <th>Diagnosis</th>
+                        <th>Treatment</th>
+                        {% else %}
+                        <th>Doctor</th>
+                        {% endif %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for app in data.appointments %}
+                    <tr>
+                        <td>{{ app.date }}</td>
+                        <td>{{ app.time }}</td>
+                        {% if data.role == 'doctor' %}
+                        <td>{{ app.patient_name }}</td>
+                        <td>{{ app.diagnosis }}</td>
+                        <td>{{ app.treatment }}</td>
+                        {% else %}
+                        <td>Dr. {{ app.doctor_name }}</td>
+                        {% endif %}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% endif %}
+            
+        </div>
+        <div class="footer">
+            &copy; 23dp3000042 -  Hospital Management System
+        </div>
+    </div>
+</body>
+</html>
