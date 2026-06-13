@@ -1,2 +1,5 @@
 # Hospital-Management-System
-Backend:
+Backend: Flask
+Database: SQLAlchemy
+Security: JWT Extended
+Frontend: Vue JS
